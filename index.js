@@ -31,10 +31,12 @@ function validateCommands()
 }
 
 async function parseFile() {
-    const file = fs.readFileSync(filepath, 'utf8');
-    const formattedFile = await prettier.format(file, {parser: "angular"});
-    fs.writeFileSync(filepath, formattedFile, 'utf8');
-    const lines = formattedFile.split('\n');
+    let file = fs.readFileSync(filepath, 'utf8');
+    if (commentOption) {
+        file = await prettier.format(file, {parser: "angular"});
+        fs.writeFileSync(filepath, file, 'utf8');
+    }
+    const lines = file.split('\n');
 
     let previousLeftIndent = -1;
     const commentRegex = /<!--[^-]*[@}][^-]*-->/;
