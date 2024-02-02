@@ -33,7 +33,7 @@ function validateCommands()
 async function parseFile() {
     let file = fs.readFileSync(filepath, 'utf8');
     if (commentOption) {
-        file = await prettier.format(file, {parser: "angular"});
+        file = await prettier.format(file, {parser: "html"});
         fs.writeFileSync(filepath, file, 'utf8');
     }
     const lines = file.split('\n');
